@@ -4,16 +4,12 @@ const navLinks = document.querySelector('.nav-links');
 
 menuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('active');
-    
-    // Animate hamburger menu
-    menuToggle.classList.toggle('active');
 });
 
 // Close mobile menu when clicking on a link
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         navLinks.classList.remove('active');
-        menuToggle.classList.remove('active');
     });
 });
 
@@ -44,15 +40,21 @@ contactForm.addEventListener('submit', (e) => {
     
     console.log('Form submitted:', formData);
     
-    // Show success message
-    alert('Thank you for your message! We will get back to you soon.');
+    // Show success message inline
+    const submitButton = contactForm.querySelector('.btn-primary');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = '✓ Message Sent!';
+    submitButton.style.background = '#48bb78';
     
-    // Reset form
-    contactForm.reset();
+    // Reset form and button after delay
+    setTimeout(() => {
+        contactForm.reset();
+        submitButton.textContent = originalText;
+        submitButton.style.background = '';
+    }, 3000);
 });
 
 // Add scroll effect to header
-let lastScroll = 0;
 const header = document.querySelector('.header');
 
 window.addEventListener('scroll', () => {
@@ -63,8 +65,6 @@ window.addEventListener('scroll', () => {
     } else {
         header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
     }
-    
-    lastScroll = currentScroll;
 });
 
 // Intersection Observer for fade-in animations
@@ -88,17 +88,6 @@ document.querySelectorAll('.feature-card').forEach((card, index) => {
     card.style.transform = 'translateY(30px)';
     card.style.transition = `all 0.6s ease ${index * 0.1}s`;
     observer.observe(card);
-});
-
-// Add hover effect to buttons
-document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.05)';
-    });
-    
-    button.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1)';
-    });
 });
 
 console.log('App Design frontend loaded successfully!');
